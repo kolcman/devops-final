@@ -1,0 +1,88 @@
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- logs / temp ---
+*.log
+*.tmp
+*.bak
+*.old
+*.cache
+*.pid
+
+# --- archives / build outputs ---
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+dist/
+build/
+out/
+
+# --- Debian packaging artifacts ---
+*.deb
+*.udeb
+*.ddeb
+*.changes
+*.buildinfo
+*.dsc
+*.debian.tar.*
+*.orig.tar.*
+
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/files
+debian/*.log
+debian/*.substvars
+debian/tmp/
+
+# If you keep generated docs/assets:
+docs/**/*.pdf
+
+# --- Secrets / credentials (DO NOT COMMIT) ---
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.csr
+*.cer
+*.der
+*.jks
+*.ovpn
+*.conf.local
+*.secrets.*
+
+# --- Easy-RSA / PKI generated data ---
+**/easy-rsa/pki/
+**/pki/
+
+# --- OpenVPN runtime/generated ---
+**/openvpn/*.status
+**/openvpn/*.log
+
+# --- Terraform (if used) ---
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# --- Ansible (if used) ---
+*.retry
+**/.ansible/
+

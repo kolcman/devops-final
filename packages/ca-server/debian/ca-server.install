@@ -1,0 +1,2 @@
+ca-server-init usr/sbin/
+debian/ca-server.ca-server.conf etc/ca-server/

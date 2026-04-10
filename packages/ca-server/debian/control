@@ -1,0 +1,15 @@
+Source: ca-server
+Section: admin
+Priority: optional
+Maintainer: Max <max@localhost>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: ca-server
+Architecture: all
+Depends: ${misc:Depends}, easy-rsa, openssl
+Description: CA bootstrap (Easy-RSA) for учебный проект
+ Пакет ставит скрипт и systemd oneshot-юнит, который инициализирует
+ PKI (корневой сертификат) на целевой машине при первом запуске.
+

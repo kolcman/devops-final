@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CONFIG_FILE="/etc/ca-server/ca-server.conf"
+PKI_DIR="/var/lib/ca-server/pki"
+
+log() { printf '%s\n' "$*"; }
+die() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
+
+if [[ $EUID -ne 0 ]]; then
+  die "run as root"
+fi
+
+if [[ -f "$CONFIG_FILE" ]]; then
+  # shellcheck disable=SC1090
+  source "$CONFIG_FILE"
+fi
+
+EASYRSA_BIN="${EASYRSA_BIN:-easyrsa}"
+EASYRSA_REQ_CN="${EASYRSA_REQ_CN:-ca-server}"
+EASYRSA_BATCH="${EASYRSA_BATCH:-1}"
+
+install -d -m 0700 "$(dirname "$PKI_DIR")"
+install -d -m 0700 "$PKI_DIR"
+
+if [[ -f "$PKI_DIR/ca.crt" && -f "$PKI_DIR/private/ca.key" ]]; then
+  log "[ca-server] PKI already initialized: $PKI_DIR"
+  exit 0
+fi
+
+log "[ca-server] Initializing PKI in $PKI_DIR"
+
+tmp="$(mktemp -d)"
+cleanup() { rm -rf "$tmp"; }
+trap cleanup EXIT
+
+cd "$tmp"
+
+# Easy-RSA expects to work inside its working directory.
+# We keep a throwaway workdir and then move the generated PKI to PKI_DIR.
+export EASYRSA_BATCH
+export EASYRSA_REQ_CN
+
+"$EASYRSA_BIN" init-pki
+"$EASYRSA_BIN" build-ca nopass
+
+if [[ ! -d pki ]]; then
+  die "Easy-RSA did not create pki/ directory"
+fi
+
+rm -rf "$PKI_DIR"
+mv pki "$PKI_DIR"
+chmod -R go-rwx "$PKI_DIR"
+
+log "[ca-server] Done"
+
