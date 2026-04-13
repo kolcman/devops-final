@@ -24,6 +24,8 @@ Thumbs.db
 dist/
 build/
 out/
+artifacts/
+vpn-client/
 
 # --- Debian packaging artifacts ---
 *.deb
@@ -41,6 +43,14 @@ debian/files
 debian/*.log
 debian/*.substvars
 debian/tmp/
+**/debian/.debhelper/
+**/debian/debhelper-build-stamp
+**/debian/files
+**/debian/*.log
+**/debian/*.substvars
+**/debian/tmp/
+**/debian/*debhelper*
+**/debian/openvpn-server-config/
 
 # If you keep generated docs/assets:
 docs/**/*.pdf
@@ -60,6 +70,7 @@ docs/**/*.pdf
 *.ovpn
 *.conf.local
 *.secrets.*
+*.crt.srl
 
 # --- Easy-RSA / PKI generated data ---
 **/easy-rsa/pki/

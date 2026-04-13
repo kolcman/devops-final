@@ -1,0 +1,4 @@
+server.conf etc/openvpn/server/
+vpn-gen-server-csr usr/sbin/
+openvpn-server-config.default etc/default/openvpn-server-config
+

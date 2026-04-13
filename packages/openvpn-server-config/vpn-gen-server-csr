@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CONF_FILE="/etc/default/openvpn-server-config"
+EASYRSA_BIN="${EASYRSA_BIN:-/usr/share/easy-rsa/easyrsa}"
+WORKDIR="${WORKDIR:-/var/lib/openvpn-easyrsa}"
+SERVER_NAME="${SERVER_NAME:-server}"
+
+if [[ -f "$CONF_FILE" ]]; then
+  # shellcheck disable=SC1090
+  source "$CONF_FILE"
+fi
+
+log() { printf '%s\n' "$*"; }
+die() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
+
+[[ $EUID -eq 0 ]] || die "Run as root"
+[[ -x "$EASYRSA_BIN" ]] || die "Easy-RSA binary not found: $EASYRSA_BIN"
+
+install -d -m 0700 "$WORKDIR"
+cd "$WORKDIR"
+
+if [[ ! -d pki ]]; then
+  "$EASYRSA_BIN" init-pki
+fi
+
+if [[ -f "pki/private/${SERVER_NAME}.key" && -f "pki/reqs/${SERVER_NAME}.req" ]]; then
+  log "[vpn-csr] CSR already exists: pki/reqs/${SERVER_NAME}.req"
+  exit 0
+fi
+
+"$EASYRSA_BIN" gen-req "$SERVER_NAME" nopass
+
+install -d -m 0755 /etc/openvpn/server/pki
+install -m 0600 "pki/private/${SERVER_NAME}.key" "/etc/openvpn/server/pki/${SERVER_NAME}.key"
+install -m 0644 "pki/reqs/${SERVER_NAME}.req" "/etc/openvpn/server/pki/${SERVER_NAME}.req"
+
+log "[vpn-csr] Generated:"
+log "  key: /etc/openvpn/server/pki/${SERVER_NAME}.key"
+log "  csr: /etc/openvpn/server/pki/${SERVER_NAME}.req"
+

@@ -14,24 +14,12 @@
 ```text
 .
 ├── scripts/                 # bash-скрипты развёртывания/настройки/обслуживания
-│   ├── pki/
-│   ├── vpn/
-│   ├── monitoring/
-│   └── backup/
+│   └── vpn/
 ├── packages/                # исходники deb-пакетов (debian/*, control, postinst и т.п.)
-│   ├── pki/
-│   ├── vpn/
-│   ├── monitoring/
-│   └── backup/
+│   ├── ca-server/
+│   └── openvpn-server-config/
 ├── docs/                    # вся документация проекта
-│   ├── 01-monitoring-design.md
-│   ├── 02-backup-design.md
-│   ├── 03-vpn-user-guide.md
-│   ├── 04-admin-guide.md
-│   ├── 05-roadmap.md
-│   └── diagrams/
-│       ├── infra.png
-│       └── dataflows.png
+│   └── 03-vpn-user-guide.md
 └── README.md
 ```
 
@@ -45,12 +33,9 @@
 
 - **Бриф/условие задания**: `Бриф. Старт в DevOps — системное администрирование для начинающих.pdf`
 - **Deb‑пакет CA (исходники)**: `packages/ca-server/`
-- **Документация проекта** (если добавлена): `docs/`
-  - `docs/01-monitoring-design.md`
-  - `docs/02-backup-design.md`
-  - `docs/03-vpn-user-guide.md`
-  - `docs/04-admin-guide.md`
-  - `docs/05-roadmap.md`
+- **Deb‑пакет VPN (исходники)**: `packages/openvpn-server-config/`
+- **Скрипт настройки VPN‑VM**: `scripts/vpn/setup-vpn.sh`
+- **Документация проекта**: `docs/03-vpn-user-guide.md`
 
 ## Формат сдачи
 

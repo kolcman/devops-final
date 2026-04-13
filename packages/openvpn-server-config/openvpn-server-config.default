@@ -1,0 +1,5 @@
+# /etc/default/openvpn-server-config
+EASYRSA_BIN=easyrsa
+WORKDIR=/var/lib/openvpn-easyrsa
+SERVER_NAME=server
+

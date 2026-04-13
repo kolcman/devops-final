@@ -1,0 +1,7 @@
+openvpn-server-config (1.1) unstable; urgency=medium
+
+  * Set Easy-RSA default path to /usr/share/easy-rsa/easyrsa.
+  * Add dh parameter to OpenVPN server config.
+  * Add postinst safety fixes for /etc/default and script line endings.
+
+ -- Max <max@localhost>  Fri, 10 Apr 2026 12:10:00 +0000

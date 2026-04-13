@@ -1,0 +1,15 @@
+Source: openvpn-server-config
+Section: admin
+Priority: optional
+Maintainer: Max <max@localhost>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: openvpn-server-config
+Architecture: all
+Depends: ${misc:Depends}, easy-rsa, openvpn
+Description: OpenVPN server config and helper scripts
+ Installs a baseline OpenVPN server config and helper script
+ for generating server private key and CSR using Easy-RSA.
+

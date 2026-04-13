@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CFG="/etc/default/openvpn-server-config"
+
+if [[ -d "$CFG" ]]; then
+  rm -rf "$CFG"
+fi
+
+if [[ ! -f "$CFG" ]]; then
+  cat >"$CFG" <<'EOF'
+EASYRSA_BIN=/usr/share/easy-rsa/easyrsa
+WORKDIR=/var/lib/openvpn-easyrsa
+SERVER_NAME=server
+EOF
+fi
+
+# Defensive fix in case file got CRLF after transfer.
+sed -i 's/\r$//' /usr/sbin/vpn-gen-server-csr || true
+chmod 0755 /usr/sbin/vpn-gen-server-csr || true
+
+exit 0
