@@ -1,0 +1,50 @@
+groups:
+  - name: infra-alerts
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance down: {{ $labels.instance }}"
+          description: "Prometheus не может собрать метрики с {{ $labels.instance }} более 2 минут."
+
+      - alert: HighCPUUsage
+        expr: 100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU: {{ $labels.instance }}"
+          description: "CPU > 85% более 5 минут."
+
+      - alert: HighMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage: {{ $labels.instance }}"
+          description: "RAM > 90% более 5 минут."
+
+      - alert: LowDiskSpace
+        expr: (node_filesystem_avail_bytes{fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{fstype!~"tmpfs|overlay"}) * 100 < 10
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Low disk space: {{ $labels.instance }}"
+          description: "Свободно < 10% на одном из файловых разделов."
+
+  - name: vpn-alerts
+    rules:
+      - alert: VPNServerDown
+        expr: up{job="node_exporters", instance="192.168.10.7:9100"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "VPN server metrics unavailable"
+          description: "Не удаётся получить метрики с VPN VM (192.168.10.7:9100)."
+
