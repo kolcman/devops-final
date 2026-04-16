@@ -1,4 +1,4 @@
-# Система резервного копирования (блок 4)
+# Система резервного копирования
 
 ## 1. Назначение и цель
 
@@ -115,8 +115,9 @@
 Пример установки на VM:
 
 ```bash
-sudo install -m 0755 scripts/backup/backup-run.sh /usr/local/sbin/backup-run.sh
-sudo install -m 0755 scripts/backup/backup-rotate.sh /usr/local/sbin/backup-rotate.sh
+sudo install -m 0755 scripts/backup/backup-run.sh /usr/sbin/backup-run.sh
+sudo install -m 0755 scripts/backup/backup-rotate.sh /usr/sbin/backup-rotate.sh
+sudo install -m 0755 scripts/backup/restore-run.sh /usr/sbin/restore-run.sh
 
 sudo install -m 0644 scripts/backup/systemd/linux-final-backup.service /etc/systemd/system/
 sudo install -m 0644 scripts/backup/systemd/linux-final-backup.timer /etc/systemd/system/
@@ -289,7 +290,7 @@ sudo systemctl list-timers --all | grep linux-final-backup
   - поддержка алертов backup-системы;
   - контроль доставки уведомлений.
 
-## 15. Артефакты для сдачи блока 4
+## 15. Артефакты
 
 Минимальный комплект:
 - этот документ `docs/04-backup-design.md`;
@@ -298,7 +299,7 @@ sudo systemctl list-timers --all | grep linux-final-backup
 - подтверждение теста восстановления (лог/скрин/краткий отчет);
 - подтверждение мониторинга backup-компонента (алерты/метрики).
 
-## 16. Definition of Done (блок 4)
+## 16. Definition of Done
 
 Блок считается завершенным, если:
 1. Описана и реализована схема резервирования с двумя независимыми копиями.

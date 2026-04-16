@@ -1,6 +1,6 @@
-# Учебный проект: PKI + OpenVPN + Monitoring + Backup
+# PKI + OpenVPN + Monitoring + Backup
 
-Финальная работа по курсу “Старт в DevOps”: небольшая инфраструктура в облаке — **PKI (Easy-RSA)**, **OpenVPN**, **Prometheus/Alertmanager**, **Backup/Restore** и документация.
+Небольшая инфраструктура в облаке: **PKI (Easy-RSA)**, **OpenVPN**, **Prometheus/Alertmanager**, **Backup/Restore** и рабочая документация.
 
 ## Что уже готово
 
@@ -11,8 +11,8 @@
 
 ## Что в работе
 
-- Финальная проверка артефактов блока 4 на VM.
-- Дополнение документации по оставшимся блокам.
+- Финальная проверка backup-артефактов на VM.
+- Полировка документации и runbook.
 
 ## Структура репозитория
 
@@ -30,8 +30,15 @@
 │   ├── ca-server/
 │   └── openvpn-server-config/
 ├── docs/                    # вся документация проекта
+│   ├── 02-infrastructure-diagram.md
+│   ├── 08-data-flow-diagram.md
 │   ├── 01-monitoring-design.md
-│   └── 03-vpn-user-guide.md
+│   ├── 03-vpn-user-guide.md
+│   ├── 04-backup-design.md
+│   ├── 05-dr-test-report.md
+│   ├── 06-admin-guide.md
+│   ├── 07-roadmap.md
+│   └── 99-submission-index.md
 └── README.md
 ```
 
@@ -43,7 +50,6 @@
 
 ## Ссылки
 
-- **Бриф/условие задания**: `Бриф. Старт в DevOps — системное администрирование для начинающих.pdf`
 - **Deb‑пакет CA (исходники)**: `packages/ca-server/`
 - **Deb‑пакет VPN (исходники)**: `packages/openvpn-server-config/`
 - **Deb‑пакет Backup (исходники)**: `packages/backup-system-config/`
@@ -60,10 +66,15 @@
   - `monitoring/prometheus/alert.rules.yml`
   - `monitoring/alertmanager/alertmanager.yml`
 - **Документация проекта**:
+  - `docs/02-infrastructure-diagram.md`
+  - `docs/08-data-flow-diagram.md`
   - `docs/01-monitoring-design.md`
   - `docs/03-vpn-user-guide.md`
   - `docs/04-backup-design.md`
   - `docs/05-dr-test-report.md`
+  - `docs/06-admin-guide.md`
+  - `docs/07-roadmap.md`
+  - `docs/99-submission-index.md`
 
 ## Важно по секретам
 
