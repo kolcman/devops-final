@@ -48,3 +48,32 @@ groups:
           summary: "VPN server metrics unavailable"
           description: "Не удаётся получить метрики с VPN VM (192.168.10.7:9100)."
 
+  - name: backup-alerts
+    rules:
+      - alert: BackupJobFailed
+        expr: linux_final_backup_last_run_status{job="node_exporters"} == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Backup job failed on {{ $labels.instance }}"
+          description: "Последний запуск backup-run.sh завершился с ошибкой (status=0)."
+
+      - alert: BackupStale
+        expr: (time() - linux_final_backup_last_success_unixtime{job="node_exporters"}) > 86400
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Backup is stale on {{ $labels.instance }}"
+          description: "Нет успешного бэкапа более 24 часов."
+
+      - alert: BackupStorageLowSpace
+        expr: (node_filesystem_avail_bytes{fstype!~"tmpfs|overlay",mountpoint="/var/backups"} / node_filesystem_size_bytes{fstype!~"tmpfs|overlay",mountpoint="/var/backups"}) * 100 < 15
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low backup storage space on {{ $labels.instance }}"
+          description: "На разделе /var/backups свободно меньше 15%."
+

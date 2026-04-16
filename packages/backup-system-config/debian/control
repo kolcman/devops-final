@@ -1,0 +1,14 @@
+Source: backup-system-config
+Section: admin
+Priority: optional
+Maintainer: Max <max@localhost>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+
+Package: backup-system-config
+Architecture: all
+Depends: ${misc:Depends}, systemd, tar, coreutils, util-linux
+Description: Backup scripts and systemd timers for Linux Final project
+ Installs backup/rotation scripts and systemd units for automated
+ backups and retention policy in the educational infrastructure project.

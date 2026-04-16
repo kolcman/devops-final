@@ -1,0 +1,7 @@
+backup-run.sh usr/sbin/
+backup-rotate.sh usr/sbin/
+restore-run.sh usr/sbin/
+linux-final-backup.service etc/systemd/system/
+linux-final-backup.timer etc/systemd/system/
+linux-final-backup-rotate.service etc/systemd/system/
+linux-final-backup-rotate.timer etc/systemd/system/

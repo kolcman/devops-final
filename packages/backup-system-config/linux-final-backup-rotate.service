@@ -1,0 +1,11 @@
+[Unit]
+Description=Linux Final backup rotation job
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/backup-rotate.sh
+User=root
+Group=root
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=6

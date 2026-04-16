@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Linux Final backup rotation weekly
+
+[Timer]
+OnCalendar=Sun *-*-* 03:00:00
+Persistent=true
+RandomizedDelaySec=10m
+Unit=linux-final-backup-rotate.service
+
+[Install]
+WantedBy=timers.target

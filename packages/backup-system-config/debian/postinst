@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Defensive fix in case files got CRLF after transfer.
+sed -i 's/\r$//' /usr/sbin/backup-run.sh /usr/sbin/backup-rotate.sh /usr/sbin/restore-run.sh || true
+chmod 0755 /usr/sbin/backup-run.sh /usr/sbin/backup-rotate.sh /usr/sbin/restore-run.sh || true
+
+if command -v systemctl >/dev/null 2>&1; then
+  systemctl daemon-reload || true
+  systemctl enable --now linux-final-backup.timer || true
+  systemctl enable --now linux-final-backup-rotate.timer || true
+fi
+
+exit 0

@@ -1,0 +1,14 @@
+backup-system-config (1.1) unstable; urgency=medium
+
+  * Add restore-run.sh to package and install it to /usr/sbin.
+  * Update postinst permissions/CRLF fix for restore script.
+
+ -- Max <max@localhost>  Thu, 16 Apr 2026 12:30:00 +0000
+
+backup-system-config (1.0) unstable; urgency=medium
+
+  * Add backup and rotation scripts for block 4.
+  * Add systemd units and timers for automated backup jobs.
+  * Enable timers automatically on package install.
+
+ -- Max <max@localhost>  Thu, 16 Apr 2026 12:00:00 +0000

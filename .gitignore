@@ -51,6 +51,7 @@ debian/tmp/
 **/debian/tmp/
 **/debian/*debhelper*
 **/debian/openvpn-server-config/
+**/debian/backup-system-config/
 
 # If you keep generated docs/assets:
 docs/**/*.pdf
@@ -58,6 +59,8 @@ docs/**/*.pdf
 # --- Secrets / credentials (DO NOT COMMIT) ---
 .env
 .env.*
+monitoring/**/.env
+monitoring/**/secrets*
 *.pem
 *.key
 *.p12
