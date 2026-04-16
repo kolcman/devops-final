@@ -1,18 +1,13 @@
-# PKI + OpenVPN + Monitoring + Backup
+# Infrastructure: PKI + OpenVPN + Monitoring + Backup
 
-Небольшая инфраструктура в облаке: **PKI (Easy-RSA)**, **OpenVPN**, **Prometheus/Alertmanager**, **Backup/Restore** и рабочая документация.
+Небольшая инфраструктура в облаке: **PKI (Easy-RSA)**, **OpenVPN**, **Prometheus/Alertmanager**, **Backup/Restore** и документация для эксплуатации.
 
-## Что уже готово
+## Состав
 
-- **PKI**: выпуск корневого сертификата и подпись запросов (CSR).
-- **VPN**: сервер OpenVPN и процесс выдачи доступа пользователям.
-- **Мониторинг**: сбор метрик и алерты (Prometheus + Alertmanager).
-- **Бэкап**: скрипты backup/restore/rotation, systemd timers, deb-пакет backup-компонента.
-
-## Что в работе
-
-- Финальная проверка backup-артефактов на VM.
-- Полировка документации и runbook.
+- **PKI**: выпуск корневого сертификата и подпись CSR.
+- **VPN**: OpenVPN сервер и выдача доступов пользователям.
+- **Мониторинг**: Prometheus + Alertmanager, системные и backup-алерты.
+- **Резервное копирование**: backup/restore/rotation скрипты, systemd timers, deb-пакет.
 
 ## Структура репозитория
 
@@ -44,11 +39,11 @@
 
 ## Как начать
 
-- **Скрипты**: `scripts/`
-- **Deb‑пакеты (исходники)**: `packages/`
-- **Документация и схемы**: `docs/`
+1. Просмотреть документацию в `docs/`.
+2. Собрать нужные deb-пакеты из `packages/`.
+3. Применить скрипты из `scripts/` на целевых VM.
 
-## Ссылки
+## Быстрые ссылки
 
 - **Deb‑пакет CA (исходники)**: `packages/ca-server/`
 - **Deb‑пакет VPN (исходники)**: `packages/openvpn-server-config/`
@@ -66,24 +61,25 @@
   - `monitoring/prometheus/alert.rules.yml`
   - `monitoring/alertmanager/alertmanager.yml`
 - **Документация проекта**:
-  - `docs/02-infrastructure-diagram.md`
-  - `docs/08-data-flow-diagram.md`
   - `docs/01-monitoring-design.md`
+  - `docs/02-infrastructure-diagram.md`
   - `docs/03-vpn-user-guide.md`
   - `docs/04-backup-design.md`
   - `docs/05-dr-test-report.md`
   - `docs/06-admin-guide.md`
   - `docs/07-roadmap.md`
+  - `docs/08-data-flow-diagram.md`
   - `docs/99-submission-index.md`
+
+## Проверка готовности
+
+- Таймеры backup активны: `linux-final-backup.timer`, `linux-final-backup-rotate.timer`.
+- Ручной backup выполняется без ошибок: `linux-final-backup.service`.
+- Restore проходит в тестовый каталог через `/usr/sbin/restore-run.sh`.
+- Контрольная сумма архива подтверждается через `sha256sum -c`.
 
 ## Важно по секретам
 
 - SMTP пароль и другие секреты не хранятся в репозитории.
 - В шаблоне `monitoring/alertmanager/alertmanager.yml` используется плейсхолдер `__SET_IN_VM__`.
-
-## Формат сдачи
-
-- **Архив** со всеми документами/скриптами/пакетами + файл с пояснениями к именам.
-- **Ссылка на папку** (например, Google Drive) + документ со ссылками и пояснениями.
-- **Ссылка на git‑репозиторий** + документы в Google Docs + документ со ссылками и пояснениями.
 

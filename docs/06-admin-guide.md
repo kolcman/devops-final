@@ -4,7 +4,7 @@
 
 ## 1. Общая информация о системе
 
-- Проект: учебная инфраструктура PKI + OpenVPN + Monitoring + Backup
+- Проект: инфраструктура PKI + OpenVPN + Monitoring + Backup
 - Облачный провайдер: VM в публичном облаке
 - Компоненты: CA, VPN, Prometheus/Alertmanager, backup scripts + deb packages
 
